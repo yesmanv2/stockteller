@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>牛古推演神算 · 股票五行命盘</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css?t=20260416185700" />
+  </head>
+  <body>
+    <canvas id="cyber-particles"></canvas>
+    <div class="page-shell">
+      <header class="hero-card">
+        <div>
+          <h1 class="cyber-title"><span data-text="牛古推演神算">牛古推演神算</span></h1>
+        </div>
+        <div class="hero-badge-group">
+          <span class="hero-badge">股票五行</span>
+          <span class="hero-badge">行业属性</span>
+          <span class="hero-badge">上市命盘</span>
+          <span class="hero-badge">人股匹配</span>
+          <span class="hero-badge">流年推演</span>
+        </div>
+      </header>
+      <p class="copyright-text">&copy; 版权所有：城中村女大学生</p>
+      <main class="layout-grid">
+        <!-- 左侧输入面板 -->
+        <section class="panel form-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-tag">输入信息</p>
+              <h2>开始推演</h2>
+            </div>
+            <button id="fill-demo" class="ghost-button" type="button">填入示例</button>
+          </div>
+
+          <form id="fortune-form" class="fortune-form">
+            <!-- 选股区 -->
+            <div class="form-section-label">选股</div>
+            <div class="stock-search-wrapper">
+              <label class="input-group">
+                <span>股票代码 / 名称</span>
+                <input id="stock-input" type="text" placeholder="输入代码或名称搜索" autocomplete="off" required />
+              </label>
+              <div id="stock-dropdown" class="stock-dropdown hidden"></div>
+            </div>
+
+            <div id="selected-stock" class="selected-stock hidden"></div>
+
+            <!-- 投资人信息区 -->
+            <div class="form-section-label">投资人信息</div>
+            <div class="input-row">
+              <label class="input-group">
+                <span>性别</span>
+                <select id="gender" name="gender" required>
+                  <option value="male">男</option>
+                  <option value="female">女</option>
+                </select>
+              </label>
+              <label class="input-group">
+                <span>出生日期</span>
+                <input id="birth-date" name="birthDate" type="date" required />
+              </label>
+            </div>
+            <label class="input-group">
+              <span>出生时刻</span>
+              <input id="birth-time" name="birthTime" type="time" value="12:00" required />
+            </label>
+
+            <button class="primary-button" type="submit">开始推演</button>
+          </form>
+
+          <div class="notice-card">
+            <p>本系统基于传统五行学说，结合行业属性与上市日期八字，匹配投资人命理进行趣味分析</p>
+          </div>
+        </section>
+
+        <!-- 右侧结果面板 -->
+        <section class="panel result-panel" id="result-panel">
+          <div class="result-empty" id="empty-state">
+            <div class="empty-orb"></div>
+            <h2>股票命盘将在这里展开</h2>
+            <p>选择股票并输入个人信息后，即可查看三维五行匹配分析。</p>
+          </div>
+
+          <div class="result-content hidden" id="result-content">
+            <!-- 流年大势（宏观背景） -->
+            <div class="section-block era-overview">
+              <p class="section-tag">流年大势</p>
+              <h2 id="era-title">--</h2>
+              <div id="era-element-badges" class="era-element-badges"></div>
+              <p id="era-desc" class="detail-text"></p>
+            </div>
+
+            <!-- 综合匹配仪表盘 -->
+            <div class="section-block match-dashboard">
+              <p class="section-tag">三维匹配度</p>
+              <h2 id="match-title">综合匹配评分</h2>
+              <div class="gauge-container">
+                <svg class="gauge-svg" viewBox="0 0 200 120">
+                  <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#1a1a35" stroke-width="12" stroke-linecap="round"/>
+                  <path id="gauge-arc" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGrad)" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 251"/>
+                  <defs><linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff5d5d"/><stop offset="50%" stop-color="#f4c978"/><stop offset="100%" stop-color="#75e0a7"/></linearGradient></defs>
+                  <text id="gauge-score" x="100" y="88" text-anchor="middle" fill="#e8e8f0" font-size="32" font-weight="700" font-family="Inter, sans-serif">--</text>
+                  <text id="gauge-label" x="100" y="108" text-anchor="middle" fill="#a0a0b8" font-size="11" font-family="Noto Serif SC, serif">等待推演</text>
+                </svg>
+              </div>
+              <div class="sub-scores" id="sub-scores"></div>
+              <p class="match-summary" id="match-summary"></p>
+            </div>
+
+            <!-- 股票命盘 -->
+            <div class="section-block">
+              <p class="section-tag">股票命盘</p>
+              <h2 id="stock-title">--</h2>
+              <div id="stock-pillars" class="pillars-grid"></div>
+              <div id="stock-element-bar" class="element-bar"></div>
+              <p id="stock-desc" class="detail-text"></p>
+            </div>
+
+            <!-- 投资人命盘 -->
+            <div class="section-block">
+              <p class="section-tag">投资人命盘</p>
+              <h2 id="investor-title">--</h2>
+              <div id="investor-pillars" class="pillars-grid"></div>
+              <div id="investor-element-bar" class="element-bar"></div>
+              <div id="investor-profile" class="profile-cards"></div>
+            </div>
+
+            <!-- 人股关系解读 -->
+            <div class="section-block">
+              <p class="section-tag">人股关系解读</p>
+              <h2 id="relation-title">--</h2>
+              <p id="relation-desc" class="detail-text"></p>
+              <p id="invest-advice" class="advice-text"></p>
+            </div>
+
+            <!-- 流年运势 -->
+            <div class="section-block">
+              <p class="section-tag">流年运势推演</p>
+              <h2>2024 - 2036 年度运势</h2>
+              <div id="yearly-timeline" class="yearly-timeline"></div>
+            </div>
+
+            <!-- 命理推荐牛股 -->
+            <div class="section-block rec-section">
+              <p class="section-tag">命理推荐</p>
+              <h2 id="rec-title">与您八字最匹配的股票</h2>
+              <p class="rec-intro" id="rec-intro"></p>
+              <div id="rec-grid" class="rec-grid"></div>
+            </div>
+
+            <!-- 投资建议总结 -->
+            <div class="section-block summary-block">
+              <p class="section-tag">综合分析总结</p>
+              <h2>推演结论</h2>
+              <p id="final-summary" class="final-summary"></p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- 免责声明 -->
+      <footer class="site-footer">
+        <div class="disclaimer-full">
+          <h3>免责声明</h3>
+          <p>本系统基于中国古法五行堪舆统计学，仅供娱乐参考。</p>
+          <p><strong>不构成任何形式的投资建议、投资指导或投资依据。</strong></p>
+          <p class="risk-warning"><strong>投资有风险，入市需谨慎。</strong></p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./bazi-engine.js?t=20260416185700"></script>
+    <script src="./stock-data.js?t=20260416185700"></script>
+    <script src="./stock-core.js?t=20260416185700"></script>
+    <script src="./app.js?t=20260416185700"></script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "niugu-stock-fortune",
+  "version": "1.0.0",
+  "description": "牛古推演神算 - 股票五行命盘分析系统",
+  "scripts": {
+    "dev": "python3 -m http.server 4174"
+  }
+}
