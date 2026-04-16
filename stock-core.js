@@ -92,12 +92,17 @@ const ERA_SECTOR_BONUS = {
   "新兴市场": 10, "新兴市场ETF": 10,
 };
 
+/* 日韩台ETF底层持仓以半导体为主，额外加成 */
+const SEMI_HEAVY_SECTORS = { "韩国市场": 12, "台湾市场": 15, "日本市场": 8 };
+
 /* 基础景气度（不带八字调节） */
 function _getEraTrendBonusRaw(stock) {
   if (!stock) return 0;
   var sector = stock.sector || "";
   var industry = stock.industry || "";
-  return ERA_SECTOR_BONUS[sector] || ERA_SECTOR_BONUS[industry] || 0;
+  var base = ERA_SECTOR_BONUS[sector] || ERA_SECTOR_BONUS[industry] || 0;
+  var semiExtra = SEMI_HEAVY_SECTORS[sector] || 0;
+  return base + semiExtra;
 }
 
 /* 与投资人八字交互的景气度
@@ -121,9 +126,9 @@ function _getEraTrendBonus(stock, usefulGod) {
   if (like.indexOf(stockEl) >= 0) {
     return raw;
   }
-  /* 忌神匹配 → 60% */
+  /* 忌神匹配 → 70% */
   if (dislike.indexOf(stockEl) >= 0) {
-    return Math.round(raw * 0.6);
+    return Math.round(raw * 0.7);
   }
   /* 非喜非忌 → 70% */
   return Math.round(raw * 0.7);
