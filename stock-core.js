@@ -121,12 +121,12 @@ function _getEraTrendBonus(stock, usefulGod) {
   if (like.indexOf(stockEl) >= 0) {
     return raw;
   }
-  /* 忌神匹配 → 仅30%（时代大势仍有一定影响，但大幅削减） */
+  /* 忌神匹配 → 60% */
   if (dislike.indexOf(stockEl) >= 0) {
-    return Math.round(raw * 0.3);
+    return Math.round(raw * 0.6);
   }
-  /* 非喜非忌 → 60% */
-  return Math.round(raw * 0.6);
+  /* 非喜非忌 → 70% */
+  return Math.round(raw * 0.7);
 }
 
 const MONTH_NAMES = [
