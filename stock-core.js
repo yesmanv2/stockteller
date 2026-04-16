@@ -342,7 +342,6 @@ function matchStockToInvestor(stockElement, investorResult, stockInfo) {
   }
 
   if (eraBonus > 0) {
-    matchScore += eraBonus;
     matchDesc += "。当前处于" + (stockInfo ? stockInfo.sector || stockInfo.industry : stockEl) + "行业大景气周期，时代趋势加成+" + eraBonus;
   }
 
@@ -356,6 +355,7 @@ function matchStockToInvestor(stockElement, investorResult, stockInfo) {
     relation,
     matchDesc,
     investStyleAdvice,
+    eraBonus,
   };
 }
 
@@ -667,11 +667,15 @@ function generateFullAnalysis(stockInfo, birthDate, birthTime, gender) {
   const currentYear = new Date().getFullYear();
   const monthlyFortune = calculateMonthlyFortune(stock.primaryElement, investor.dayElement, currentYear);
 
+  /* 景气度归一化到0-100分（raw最高35） */
+  var eraNorm = _clamp(Math.round((match.eraBonus || 0) * 100 / 35), 0, 100);
+
   const overallScore = _clamp(
     Math.round(
-      match.matchScore * 0.48 +
-      _avgCombined(yearlyFortune, currentYear) * 0.27 +
-      _avgCombined(yearlyFortune) * 0.18 +
+      match.matchScore * 0.40 +
+      eraNorm * 0.12 +
+      _avgCombined(yearlyFortune, currentYear) * 0.25 +
+      _avgCombined(yearlyFortune) * 0.16 +
       _ipoQualityBonus(stock, investor) * 0.07
     ),
     0, 100
@@ -1085,11 +1089,13 @@ function getRecommendedStocks(investorResult, limit) {
     var matchResult = matchStockToInvestor(stockAnalysis, investorResult, stockInfo);
     var yearlyFortune = calculateYearlyFortune(stockAnalysis.primaryElement, dayElement, [2024, 2036], stockInfo, usefulGod);
     var monthlyFortune = calculateMonthlyFortune(stockAnalysis.primaryElement, dayElement, currentYear);
+    var eraNorm = _clamp(Math.round((matchResult.eraBonus || 0) * 100 / 35), 0, 100);
     var realScore = _clamp(
       Math.round(
-        matchResult.matchScore * 0.48 +
-        _avgCombined(yearlyFortune, currentYear) * 0.27 +
-        _avgCombined(yearlyFortune) * 0.18 +
+        matchResult.matchScore * 0.40 +
+        eraNorm * 0.12 +
+        _avgCombined(yearlyFortune, currentYear) * 0.25 +
+        _avgCombined(yearlyFortune) * 0.16 +
         _ipoQualityBonus(stockAnalysis, investorResult) * 0.07
       ),
       0, 100
