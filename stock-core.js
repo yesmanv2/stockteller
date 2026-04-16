@@ -667,8 +667,8 @@ function generateFullAnalysis(stockInfo, birthDate, birthTime, gender) {
   const currentYear = new Date().getFullYear();
   const monthlyFortune = calculateMonthlyFortune(stock.primaryElement, investor.dayElement, currentYear);
 
-  /* 景气度归一化到0-100分（raw最高35） */
-  var eraNorm = _clamp(Math.round((match.eraBonus || 0) * 100 / 35), 0, 100);
+  /* 景气度归一化到0-100分（以25为基准，超过25的部分可突破但clamp到100） */
+  var eraNorm = _clamp(Math.round((match.eraBonus || 0) * 100 / 25), 0, 100);
 
   const overallScore = _clamp(
     Math.round(
@@ -1089,7 +1089,7 @@ function getRecommendedStocks(investorResult, limit) {
     var matchResult = matchStockToInvestor(stockAnalysis, investorResult, stockInfo);
     var yearlyFortune = calculateYearlyFortune(stockAnalysis.primaryElement, dayElement, [2024, 2036], stockInfo, usefulGod);
     var monthlyFortune = calculateMonthlyFortune(stockAnalysis.primaryElement, dayElement, currentYear);
-    var eraNorm = _clamp(Math.round((matchResult.eraBonus || 0) * 100 / 35), 0, 100);
+    var eraNorm = _clamp(Math.round((matchResult.eraBonus || 0) * 100 / 25), 0, 100);
     var realScore = _clamp(
       Math.round(
         matchResult.matchScore * 0.33 +
