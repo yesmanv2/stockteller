@@ -672,9 +672,9 @@ function generateFullAnalysis(stockInfo, birthDate, birthTime, gender) {
 
   const overallScore = _clamp(
     Math.round(
-      match.matchScore * 0.40 +
-      eraNorm * 0.12 +
-      _avgCombined(yearlyFortune, currentYear) * 0.25 +
+      match.matchScore * 0.33 +
+      eraNorm * 0.20 +
+      _avgCombined(yearlyFortune, currentYear) * 0.24 +
       _avgCombined(yearlyFortune) * 0.16 +
       _ipoQualityBonus(stock, investor) * 0.07
     ),
@@ -1092,9 +1092,9 @@ function getRecommendedStocks(investorResult, limit) {
     var eraNorm = _clamp(Math.round((matchResult.eraBonus || 0) * 100 / 35), 0, 100);
     var realScore = _clamp(
       Math.round(
-        matchResult.matchScore * 0.40 +
-        eraNorm * 0.12 +
-        _avgCombined(yearlyFortune, currentYear) * 0.25 +
+        matchResult.matchScore * 0.33 +
+        eraNorm * 0.20 +
+        _avgCombined(yearlyFortune, currentYear) * 0.24 +
         _avgCombined(yearlyFortune) * 0.16 +
         _ipoQualityBonus(stockAnalysis, investorResult) * 0.07
       ),
