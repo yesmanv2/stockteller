@@ -772,6 +772,41 @@ const STOCK_DATA_US2 = [
   { ticker: "TRMB", name: "天宝导航", nameEn: "Trimble Inc.", market: "US", industry: "科技", sector: "定位技术", ipoDate: "1990-07-19", industryElement: "火" },
   { ticker: "SMAR", name: "Smartsheet", nameEn: "Smartsheet Inc.", market: "US", industry: "软件", sector: "协作软件", ipoDate: "2018-04-27", industryElement: "火" },
 
+  // ===================== 新增：光通信/AI基础设施 =====================
+  { ticker: "LITE", name: "Lumentum", nameEn: "Lumentum Holdings Inc.", market: "US", industry: "科技", sector: "光通信", ipoDate: "2015-08-04", industryElement: "火" },
+
+  // ===================== 新增：关键金属/矿业 =====================
+  { ticker: "CRML", name: "Critical Metals", nameEn: "Critical Metals Corp.", market: "US", industry: "矿业", sector: "关键金属", ipoDate: "2022-10-14", industryElement: "土" },
+
+  // ===================== 新增：AI/科技 =====================
+  { ticker: "UPST", name: "Upstart", nameEn: "Upstart Holdings Inc.", market: "US", industry: "AI", sector: "AI信贷", ipoDate: "2020-12-16", industryElement: "火" },
+  { ticker: "BBAI", name: "BigBear.ai", nameEn: "BigBear.ai Holdings", market: "US", industry: "AI", sector: "AI决策", ipoDate: "2021-12-07", industryElement: "火" },
+
+  // ===================== 新增：基因编辑/生物科技 =====================
+  { ticker: "CRSP", name: "CRISPR", nameEn: "CRISPR Therapeutics AG", market: "US", industry: "生物科技", sector: "基因编辑", ipoDate: "2016-10-19", industryElement: "木" },
+  { ticker: "EDIT", name: "Editas", nameEn: "Editas Medicine Inc.", market: "US", industry: "生物科技", sector: "基因编辑", ipoDate: "2016-02-03", industryElement: "木" },
+  { ticker: "BEAM", name: "Beam", nameEn: "Beam Therapeutics Inc.", market: "US", industry: "生物科技", sector: "基因编辑", ipoDate: "2020-02-06", industryElement: "木" },
+  { ticker: "RXRX", name: "Recursion", nameEn: "Recursion Pharmaceuticals", market: "US", industry: "生物科技", sector: "AI制药", ipoDate: "2021-04-16", industryElement: "木" },
+  { ticker: "DNA", name: "Ginkgo Bioworks", nameEn: "Ginkgo Bioworks Holdings", market: "US", industry: "生物科技", sector: "合成生物", ipoDate: "2021-09-17", industryElement: "木" },
+
+  // ===================== 新增：中概股 =====================
+  { ticker: "IQ", name: "爱奇艺", nameEn: "iQIYI Inc.", market: "US", industry: "娱乐", sector: "视频平台", ipoDate: "2018-03-29", industryElement: "水" },
+
+  // ===================== 新增：航空航天/太空 =====================
+  { ticker: "ASTS", name: "AST SpaceMobile", nameEn: "AST SpaceMobile Inc.", market: "US", industry: "通信", sector: "卫星通信", ipoDate: "2021-04-07", industryElement: "火" },
+  { ticker: "LUNR", name: "直觉机器", nameEn: "Intuitive Machines Inc.", market: "US", industry: "航空航天", sector: "月球着陆", ipoDate: "2023-02-14", industryElement: "金" },
+  { ticker: "IRDM", name: "铱星通信", nameEn: "Iridium Communications", market: "US", industry: "通信", sector: "卫星通信", ipoDate: "2009-02-12", industryElement: "火" },
+  { ticker: "ACHR", name: "Archer航空", nameEn: "Archer Aviation Inc.", market: "US", industry: "航空航天", sector: "电动飞行", ipoDate: "2021-09-17", industryElement: "金" },
+  { ticker: "JOBY", name: "Joby航空", nameEn: "Joby Aviation Inc.", market: "US", industry: "航空航天", sector: "电动飞行", ipoDate: "2021-08-11", industryElement: "金" },
+
+  // ===================== 新增：核能/铀矿 =====================
+  { ticker: "NRG", name: "NRG能源", nameEn: "NRG Energy Inc.", market: "US", industry: "电力", sector: "发电", ipoDate: "2003-12-05", industryElement: "火" },
+  { ticker: "SMR", name: "NuScale Power", nameEn: "NuScale Power Corp.", market: "US", industry: "能源", sector: "小型核反应堆", ipoDate: "2022-05-03", industryElement: "火" },
+  { ticker: "LEU", name: "Centrus能源", nameEn: "Centrus Energy Corp.", market: "US", industry: "能源", sector: "铀浓缩", ipoDate: "2014-09-30", industryElement: "火" },
+  { ticker: "CCJ", name: "Cameco", nameEn: "Cameco Corp.", market: "US", industry: "矿业", sector: "铀矿", ipoDate: "1991-07-22", industryElement: "土" },
+  { ticker: "UEC", name: "铀能源", nameEn: "Uranium Energy Corp.", market: "US", industry: "矿业", sector: "铀矿", ipoDate: "2005-03-15", industryElement: "土" },
+  { ticker: "DNN", name: "Denison矿业", nameEn: "Denison Mines Corp.", market: "US", industry: "矿业", sector: "铀矿", ipoDate: "2006-10-13", industryElement: "土" },
+
 ];
 
 const STOCK_DATA_HK = [

@@ -342,6 +342,7 @@ function matchStockToInvestor(stockElement, investorResult, stockInfo) {
   }
 
   if (eraBonus > 0) {
+    matchScore += eraBonus;
     matchDesc += "。当前处于" + (stockInfo ? stockInfo.sector || stockInfo.industry : stockEl) + "行业大景气周期，时代趋势加成+" + eraBonus;
   }
 
@@ -667,15 +668,11 @@ function generateFullAnalysis(stockInfo, birthDate, birthTime, gender) {
   const currentYear = new Date().getFullYear();
   const monthlyFortune = calculateMonthlyFortune(stock.primaryElement, investor.dayElement, currentYear);
 
-  /* 景气度归一化到0-100分（以25为基准，超过25的部分可突破但clamp到100） */
-  var eraNorm = _clamp(Math.round((match.eraBonus || 0) * 100 / 25), 0, 100);
-
   const overallScore = _clamp(
     Math.round(
-      match.matchScore * 0.33 +
-      eraNorm * 0.20 +
-      _avgCombined(yearlyFortune, currentYear) * 0.24 +
-      _avgCombined(yearlyFortune) * 0.16 +
+      match.matchScore * 0.48 +
+      _avgCombined(yearlyFortune, currentYear) * 0.27 +
+      _avgCombined(yearlyFortune) * 0.18 +
       _ipoQualityBonus(stock, investor) * 0.07
     ),
     0, 100
@@ -1089,13 +1086,11 @@ function getRecommendedStocks(investorResult, limit) {
     var matchResult = matchStockToInvestor(stockAnalysis, investorResult, stockInfo);
     var yearlyFortune = calculateYearlyFortune(stockAnalysis.primaryElement, dayElement, [2024, 2036], stockInfo, usefulGod);
     var monthlyFortune = calculateMonthlyFortune(stockAnalysis.primaryElement, dayElement, currentYear);
-    var eraNorm = _clamp(Math.round((matchResult.eraBonus || 0) * 100 / 25), 0, 100);
     var realScore = _clamp(
       Math.round(
-        matchResult.matchScore * 0.33 +
-        eraNorm * 0.20 +
-        _avgCombined(yearlyFortune, currentYear) * 0.24 +
-        _avgCombined(yearlyFortune) * 0.16 +
+        matchResult.matchScore * 0.48 +
+        _avgCombined(yearlyFortune, currentYear) * 0.27 +
+        _avgCombined(yearlyFortune) * 0.18 +
         _ipoQualityBonus(stockAnalysis, investorResult) * 0.07
       ),
       0, 100
