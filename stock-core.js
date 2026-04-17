@@ -78,7 +78,7 @@ const ERA_SECTOR_BONUS = {
   "互联网": 22, "科技": 22, "网络安全": 22, "大数据分析": 25,
   "电商": 18, "社交媒体": 18, "电商平台": 18,
   "电动车": 20, "光伏": 15, "新能源": 15,
-  "杠杆ETF": 12, "单股杠杆": 12, "杠杆ETN": 12, "反向ETF": 8, "反向ETN": 8,
+  "杠杆ETF": 12, "单股杠杆": 12, "杠杆ETN": 12, "反向ETF": -15, "反向ETN": -15,
   "生物科技": 12, "医药": 8,
   "军工": 12, "航空航天": 10,
   "消费电子": 18, "IT服务": 15, "IT咨询": 15,
@@ -283,6 +283,7 @@ function _buildFinancialProfile(pillars, dayStem, strength) {
 function matchStockToInvestor(stockElement, investorResult, stockInfo) {
   const { dayElement, strength, usefulGod } = investorResult;
   const stockEl = stockElement.primaryElement;
+  var isInverse = stockInfo && (stockInfo.sector === "反向ETF" || stockInfo.sector === "反向ETN");
   const eraBonus = _getEraTrendBonus(stockInfo, usefulGod);
 
   let matchScore, matchLabel, relation, matchDesc;
@@ -349,6 +350,15 @@ function matchStockToInvestor(stockElement, investorResult, stockInfo) {
   if (eraBonus > 0) {
     matchScore += eraBonus;
     matchDesc += "。当前处于" + (stockInfo ? stockInfo.sector || stockInfo.industry : stockEl) + "行业大景气周期，时代趋势加成+" + eraBonus;
+  } else if (eraBonus < 0) {
+    matchScore += eraBonus;
+    matchDesc += "。该产品为反向/做空工具，在当前行业景气周期中逆势操作，趋势惩罚" + eraBonus;
+  }
+
+  /* 反向ETF：做空忌神行业=利好，做空用神行业=利空，反转matchScore */
+  if (isInverse) {
+    matchScore = _clamp(100 - matchScore, 20, 85);
+    matchDesc += "。⚠️ 注意：这是反向/做空产品，命理匹配逻辑已反转——做空您忌神五行的标的反而有利";
   }
 
   matchScore = _clamp(matchScore, 0, 100);
@@ -385,13 +395,18 @@ function calculateYearlyFortune(stockPrimaryElement, investorDayElement, yearRan
   const endYear = yearRange[1];
   const eraBonus = _getEraTrendBonus(stockInfo, usefulGod);
 
+  /* 检测是否为反向ETF/ETN（做空产品） */
+  var isInverse = stockInfo && (stockInfo.sector === "反向ETF" || stockInfo.sector === "反向ETN");
+
   for (let year = startYear; year <= endYear; year++) {
     const yp = getYearPillarByYear(year);
     const yearElement = STEM_ELEMENTS[yp.stem];
     const yearGanzhi = yp.stem + yp.branch;
     const nayin = getNayin(yp.stem, yp.branch);
 
-    const stockScore = _scoreElementVsYear(stockPrimaryElement, yearElement);
+    var rawStockScore = _scoreElementVsYear(stockPrimaryElement, yearElement);
+    /* 反向ETF：行业好=做空亏，反转分数 */
+    const stockScore = isInverse ? _clamp(100 - rawStockScore, 0, 100) : rawStockScore;
     const matchScore = _scoreElementVsYear(investorDayElement, yearElement);
     const personalFinanceScore = _personalFinanceScore(investorDayElement, yearElement, stockPrimaryElement);
     const eraYearBonus = (year >= 2024 && year <= 2027) ? eraBonus : Math.round(eraBonus * 0.5);

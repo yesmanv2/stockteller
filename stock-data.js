@@ -1221,7 +1221,7 @@ const STOCK_DATA_LEVERAGED = [
   { ticker: "YINN", name: "3x做多中国大盘", nameEn: "Direxion Daily FTSE China Bull 3X", market: "US", industry: "金融", sector: "杠杆ETF", ipoDate: "2009-12-03", industryElement: "金" },
   { ticker: "YANG", name: "3x做空中国大盘", nameEn: "Direxion Daily FTSE China Bear 3X", market: "US", industry: "金融", sector: "反向ETF", ipoDate: "2009-12-03", industryElement: "金" },
   { ticker: "CWEB", name: "2x做多中概互联", nameEn: "Direxion Daily CSI China Internet Bull 2X", market: "US", industry: "互联网", sector: "杠杆ETF", ipoDate: "2016-11-02", industryElement: "火" },
-  { ticker: "KORU", name: "3x做多韩国", nameEn: "Direxion Daily South Korea Bull 3X", market: "US", industry: "金融", sector: "杠杆ETF", ipoDate: "2013-04-10", industryElement: "金" },
+  { ticker: "KORU", name: "3x做多韩国", nameEn: "Direxion Daily South Korea Bull 3X", market: "US", industry: "ETF", sector: "韩国市场", ipoDate: "2013-04-10", industryElement: "火" },
   { ticker: "EDC", name: "3x做多新兴市场", nameEn: "Direxion Daily EM Bull 3X", market: "US", industry: "金融", sector: "杠杆ETF", ipoDate: "2008-12-17", industryElement: "金" },
   { ticker: "EDZ", name: "3x做空新兴市场", nameEn: "Direxion Daily EM Bear 3X", market: "US", industry: "金融", sector: "反向ETF", ipoDate: "2008-12-17", industryElement: "金" },
   { ticker: "INDL", name: "2x做多印度", nameEn: "Direxion Daily MSCI India Bull 2X", market: "US", industry: "金融", sector: "杠杆ETF", ipoDate: "2010-03-11", industryElement: "金" },
