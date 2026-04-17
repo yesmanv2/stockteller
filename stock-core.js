@@ -93,7 +93,7 @@ const ERA_SECTOR_BONUS = {
 };
 
 /* 日韩台ETF底层持仓以半导体为主，额外加成 */
-const SEMI_HEAVY_SECTORS = { "韩国市场": 12, "台湾市场": 15, "日本市场": 8 };
+const SEMI_HEAVY_SECTORS = { "韩国市场": 18, "台湾市场": 20, "日本市场": 12 };
 
 /* 基础景气度（不带八字调节） */
 function _getEraTrendBonusRaw(stock) {
@@ -318,12 +318,12 @@ function matchStockToInvestor(stockElement, investorResult, stockInfo) {
     relation = "我克";
     matchDesc = `您的日主${dayElement}克制该股五行${stockEl}（${dayElement}克${stockEl}），命理中"我克者为财"——意味着您有掌控此股的潜力，但需要消耗精力和判断力。这类股票适合主动型投资者，需要花时间研究基本面、把握买卖时点。身强者操作此类标的如虎添翼，身弱者则可能力不从心`;
   } else if (usefulGod.dislikeElements.includes(stockEl)) {
-    matchScore = _variance(48, 4);
+    matchScore = _variance(55, 4);
     matchLabel = "命理偏弱";
     relation = "忌神";
     matchDesc = `该股五行属${stockEl}，在您命局的忌神五行范围内（忌${dislikeStr}）。命理层面存在一定阻力，操作时需格外注意仓位管理和止损纪律`;
   } else if (ELEMENT_OVERCOME_BY[dayElement] === stockEl) {
-    matchScore = _variance(44, 4);
+    matchScore = _variance(50, 4);
     matchLabel = "压力较大";
     relation = "克我";
     matchDesc = `该股五行${stockEl}克制您的日主${dayElement}（${stockEl}克${dayElement}），命理层面有一定压力。操作此类标的时心理承压较大，建议控制仓位、设好止损，顺势而为不逆势扛单`;
@@ -409,7 +409,7 @@ function calculateYearlyFortune(stockPrimaryElement, investorDayElement, yearRan
     const stockScore = isInverse ? _clamp(100 - rawStockScore, 0, 100) : rawStockScore;
     const matchScore = _scoreElementVsYear(investorDayElement, yearElement);
     const personalFinanceScore = _personalFinanceScore(investorDayElement, yearElement, stockPrimaryElement);
-    const eraYearBonus = (year >= 2024 && year <= 2027) ? eraBonus : Math.round(eraBonus * 0.5);
+    const eraYearBonus = (year >= 2024 && year <= 2027) ? eraBonus : Math.round(eraBonus * 0.65);
     const combinedScore = _clamp(
       Math.round(stockScore * 0.35 + matchScore * 0.35 + personalFinanceScore * 0.15 + eraYearBonus * 0.75),
       0, 100
