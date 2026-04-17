@@ -993,7 +993,7 @@ function getRecommendedStocks(investorResult, limit) {
       d1 = 16 + _variance(0, 2);
       dims.push("喜用五行");
     } else if (usefulGod.dislikeElements.includes(stockEl)) {
-      d1 = -10;
+      d1 = -3;
     } else {
       d1 = 5;
     }
@@ -1063,9 +1063,9 @@ function getRecommendedStocks(investorResult, limit) {
 
     /* 将景气度也纳入初筛评估（受投资人八字调节） */
     var eraB = _getEraTrendBonus(stock, usefulGod);
-    total += Math.round(eraB * 0.3);
+    total += Math.round(eraB * 0.6);
 
-    if (total < 20) return null;
+    if (total < 10) return null;
 
     var score = _clamp(Math.round(total * 1.1 + 10), 50, 99);
 
@@ -1084,7 +1084,7 @@ function getRecommendedStocks(investorResult, limit) {
   scored.sort(function (a, b) { return b._total - a._total; });
 
   /* 初筛取 TOP 30（扩大范围，确保不遗漏真实高分标的） */
-  var PREFETCH = Math.max(limit * 6, 30);
+  var PREFETCH = Math.max(limit * 10, 50);
   var seen = {};
   var candidates = [];
   for (var i = 0; i < scored.length && candidates.length < PREFETCH; i++) {
