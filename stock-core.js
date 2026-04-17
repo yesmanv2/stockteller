@@ -1083,10 +1083,23 @@ function getRecommendedStocks(investorResult, limit) {
 
   scored.sort(function (a, b) { return b._total - a._total; });
 
-  /* 初筛取 TOP 30（扩大范围，确保不遗漏真实高分标的） */
+  /* 初筛取 TOP 50，同时高景气度标的强制入围（不被初筛淘汰） */
   var PREFETCH = Math.max(limit * 10, 50);
   var seen = {};
   var candidates = [];
+
+  /* 先把高景气度标的强制加入（景气度raw>=25的） */
+  scored.forEach(function (item) {
+    var stockObj = STOCK_DATABASE.find(function(s) { return s.ticker === item.ticker; });
+    if (!stockObj) return;
+    var rawEra = _getEraTrendBonusRaw(stockObj);
+    if (rawEra >= 25 && !seen[item.ticker]) {
+      seen[item.ticker] = true;
+      candidates.push(item);
+    }
+  });
+
+  /* 再按初筛分数补足到 PREFETCH */
   for (var i = 0; i < scored.length && candidates.length < PREFETCH; i++) {
     var tk = scored[i].ticker;
     if (!seen[tk]) {
