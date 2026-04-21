@@ -1,8 +1,18 @@
 {
-  "name": "niugu-stock-fortune",
-  "version": "1.0.0",
-  "description": "牛古推演神算 - 股票五行命盘分析系统",
+  "name": "stockteller",
+  "version": "1.1.0",
+  "description": "牛古推演神算 · 股票五行命盘 — 基于中国传统五行命理的股票分析工具",
+  "author": "yesmanv2",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yesmanv2/stockteller.git"
+  },
+  "homepage": "https://yesmanv2.github.io/stockteller/",
   "scripts": {
-    "dev": "python3 -m http.server 4174"
-  }
+    "dev": "npx serve . -p 8080",
+    "build": "node scripts/build.js",
+    "start": "npx serve . -p 8080"
+  },
+  "keywords": ["五行", "八字", "股票", "命理", "fortune", "stock"]
 }

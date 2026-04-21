@@ -1,0 +1,12 @@
+.git
+.github
+.gitignore
+.codebuddy
+docs
+scripts
+node_modules
+Dockerfile
+.dockerignore
+README.md
+LICENSE
+package.json
